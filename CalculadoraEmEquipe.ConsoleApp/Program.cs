@@ -36,8 +36,7 @@
                     case "4":
                         Console.Clear();
 
-                        RealizarOperacaoDeDivisão(out resultadoString, historico,
-                            out resultado, out primeiroNumero, out segundoNumero);
+                        RealizarOperacaoDeDivisão(historico, out resultado);
 
                         ExibirResultadoDaOperacao(resultado);
 
@@ -59,8 +58,10 @@
             Console.ReadLine();
         }
 
-        private static void RealizarOperacaoDeDivisão(out string resultadoString, List<string> historico, out decimal resultado, out decimal primeiroNumero, out decimal segundoNumero)
+        private static void RealizarOperacaoDeDivisão(List<string> historico, out decimal resultadoFormatado)
         {
+            decimal primeiroNumero, segundoNumero;
+
             ObterPrimeiroESegundoNumero(out primeiroNumero, out segundoNumero);
 
             while (segundoNumero == 0)
@@ -72,11 +73,11 @@
                 segundoNumero = Convert.ToDecimal(Console.ReadLine());
             }
 
-            resultado = primeiroNumero / segundoNumero;
+            decimal resultado = primeiroNumero / segundoNumero;
 
-            decimal resultadoFormatado = Math.Round(resultado, 2);
+            resultadoFormatado = Math.Round(resultado, 2);
 
-            resultadoString = primeiroNumero.ToString() + " / " + segundoNumero.ToString() + " = " + resultadoFormatado.ToString();
+            string resultadoString = primeiroNumero.ToString() + " / " + segundoNumero.ToString() + " = " + resultadoFormatado.ToString();
 
             historico.Add(resultadoString);
         }
