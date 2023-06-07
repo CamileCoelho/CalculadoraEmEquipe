@@ -21,17 +21,64 @@
                     case "S":
                         continuar = false;
                         break;
+
+                    case "H":
+                        Console.Clear();
+
+                        foreach (string print in historico)
+                        {
+                            Console.WriteLine($"   {print}");
+                        }
+                        Console.ReadKey();
+
+                        break;
+
+                    case "4":
+                        Console.Clear();
+
+                        RealizarOperacaoDeDivisão(out resultadoString, historico,
+                            out resultado, out primeiroNumero, out segundoNumero);
+
+                        ExibirResultadoDaOperacao(resultado);
+
+                        break;
+
                     default:
                         break;
                 }
-
-                decimal resultadoFormatado = Math.Round(resultado, 2);
-
-                Console.WriteLine();
-                Console.Write("   O resultado da operação é:" + resultadoFormatado);
-
-                Console.ReadLine();
             }
+        }
+
+        private static void ExibirResultadoDaOperacao(decimal resultado)
+        {
+            decimal resultadoFormatado = Math.Round(resultado, 2);
+
+            Console.WriteLine();
+            Console.Write("   O resultado da operação é: " + resultadoFormatado);
+
+            Console.ReadLine();
+        }
+
+        private static void RealizarOperacaoDeDivisão(out string resultadoString, List<string> historico, out decimal resultado, out decimal primeiroNumero, out decimal segundoNumero)
+        {
+            ObterPrimeiroESegundoNumero(out primeiroNumero, out segundoNumero);
+
+            while (segundoNumero == 0)
+            {
+                Console.WriteLine("   O segundo número não pode ser zero, digite outro valor...");
+
+                Console.WriteLine("   Digite o segundo número: ");
+
+                segundoNumero = Convert.ToDecimal(Console.ReadLine());
+            }
+
+            resultado = primeiroNumero / segundoNumero;
+
+            decimal resultadoFormatado = Math.Round(resultado, 2);
+
+            resultadoString = primeiroNumero.ToString() + " / " + segundoNumero.ToString() + " = " + resultadoFormatado.ToString();
+
+            historico.Add(resultadoString);
         }
 
         private static void ObterPrimeiroESegundoNumero(out decimal primeiroNumero, out decimal segundoNumero)
@@ -56,9 +103,13 @@
             Console.WriteLine();
             Console.WriteLine("   Digite:                                                                        ");
             Console.WriteLine();
-
+            Console.WriteLine("   4  - Para realizar uma operação de divisão.                                    ");
+            Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("   S  - Para sair.                                                                ");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("   H  - Para visualizar o histórico de operações.                                 ");
             Console.WriteLine();
             Console.WriteLine("__________________________________________________________________________________");
             Console.WriteLine();
@@ -73,6 +124,7 @@
                 if (opcaoValida)
                 {
                     Console.WriteLine("\n   Opção inválida, tente novamente. ");
+                    Console.ReadKey();
                     break;
                 }
             }
