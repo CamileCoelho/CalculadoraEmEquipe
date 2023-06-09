@@ -21,20 +21,32 @@
                     case "S":
                         continuar = false;
                         break;
+
+                    case "1":
+
+                        Console.Clear();
+                        RealizarOperacaoSoma(historico, out resultado);
+                        ExibirResultadoDaOperacao(resultado);
+
+
+
+                        break;
+
+                    case "2":
+                        RealizarOperacaoSubtracao(historico, out resultado);
+                        ExibirResultadoDaOperacao(resultado);
+
+                        break;
+
                     default:
                         break;
+
                 }
-
-                decimal resultadoFormatado = Math.Round(resultado, 2);
-
-                Console.WriteLine();
-                Console.Write("   O resultado da operação é:" + resultadoFormatado);
-
-                Console.ReadLine();
             }
         }
 
-        private static void ObterPrimeiroESegundoNumero(out decimal primeiroNumero, out decimal segundoNumero)
+
+        public static void ObterPrimeiroESegundoNumero(out decimal primeiroNumero, out decimal segundoNumero)
         {
             Console.WriteLine();
             Console.Write("   Digite o primeiro número: ");
@@ -54,9 +66,10 @@
             Console.WriteLine("                           Calculadora Em Equipe!                                 ");
             Console.WriteLine("__________________________________________________________________________________");
             Console.WriteLine();
-            Console.WriteLine("   Digite:                                                                        ");
+            Console.WriteLine("   Digite 1 para soma                                                             ");
             Console.WriteLine();
-
+            Console.WriteLine("   Digite 2 para subtração                                                        ");
+            Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("   S  - Para sair.                                                                ");
             Console.WriteLine();
@@ -77,6 +90,46 @@
                 }
             }
             return opcao;
+        }
+
+        public static void RealizarOperacaoSoma(List<string> historico, out decimal resultadoFormatado)
+        {
+            Console.Clear();
+            decimal primeiroNumero, segundoNumero;
+            
+            ObterPrimeiroESegundoNumero(out primeiroNumero, out segundoNumero);
+
+            decimal resultado = primeiroNumero + segundoNumero;
+            
+            resultadoFormatado = Math.Round(resultado, 2);
+            string resultadoString = primeiroNumero.ToString() + " + " + segundoNumero.ToString() + " = " + resultadoFormatado;
+
+            historico.Add(resultadoString);
+        }
+
+        public static void RealizarOperacaoSubtracao(List<string> historico, out decimal resultadoFormatado)
+        {
+            Console.Clear();
+            decimal primeiroNumero, segundoNumero;
+
+            ObterPrimeiroESegundoNumero(out primeiroNumero, out segundoNumero);
+
+            decimal resultado = primeiroNumero - segundoNumero;
+            
+            resultadoFormatado = Math.Round(resultado, 2);
+            string resultadoString = primeiroNumero.ToString() + " + " + segundoNumero.ToString() + " = " + resultadoFormatado;
+
+            historico.Add(resultadoString);
+        }
+
+        private static void ExibirResultadoDaOperacao(decimal resultado)
+        {
+            decimal resultadoFormatado = Math.Round(resultado, 2);
+
+            Console.WriteLine();
+            Console.Write("   O resultado da operação é: " + resultadoFormatado);
+
+            Console.ReadLine();
         }
     }
 }
