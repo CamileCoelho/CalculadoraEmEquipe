@@ -18,9 +18,13 @@
 
                 switch (opcao)
                 {
+                    case "3": 
+                        RealizarOperacaoMultiplicacao(historico, out resultado);
+                        break;
+
                     case "S":
                         continuar = false;
-                        break;
+                        break; 
                     default:
                         break;
                 }
@@ -57,6 +61,7 @@
             Console.WriteLine("   Digite:                                                                        ");
             Console.WriteLine();
 
+            Console.WriteLine("   3  - Para multiplicação.                                                       ");
             Console.WriteLine();
             Console.WriteLine("   S  - Para sair.                                                                ");
             Console.WriteLine();
@@ -78,5 +83,19 @@
             }
             return opcao;
         }
+
+        public static void RealizarOperacaoMultiplicacao(List<string> historico, out decimal resultadoFormatado)
+        {
+            decimal primeiroNumero, segundoNumero;
+
+            ObterPrimeiroESegundoNumero(out primeiroNumero, out segundoNumero);
+
+            decimal resultado = primeiroNumero * segundoNumero;
+            resultadoFormatado = Math.Round(resultado, 2);
+            string resultadoString = primeiroNumero.ToString() + " * " + segundoNumero.ToString() + " = " + resultado;
+
+            historico.Add(resultadoString);
+        }
     }
 }
+
