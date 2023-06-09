@@ -18,10 +18,6 @@
 
                 switch (opcao)
                 {
-                    case "3": 
-                        RealizarOperacaoMultiplicacao(historico, out resultado);
-                        break;
-
                     case "S":
                         continuar = false;
                         break;
@@ -34,6 +30,10 @@
                         break;
                     case "2":
                         RealizarOperacaoSubtracao(historico, out resultado);
+                        ExibirResultadoDaOperacao(resultado);
+                        break;
+                    case "3":
+                        RealizarOperacaoMultiplicacao(historico, out resultado);
                         ExibirResultadoDaOperacao(resultado);
                         break;
                     case "4":
@@ -65,9 +65,11 @@
 
             while (segundoNumero == 0)
             {
-                Console.WriteLine("   O segundo número não pode ser zero, digite outro valor...");
-
-                Console.WriteLine("   Digite o segundo número: ");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("\n   O segundo número não pode ser zero, digite outro valor...");
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("   Digite o segundo número: ");
 
                 segundoNumero = Convert.ToDecimal(Console.ReadLine());
             }
@@ -121,6 +123,19 @@
             historico.Add(resultadoString);
         }
 
+        public static void RealizarOperacaoMultiplicacao(List<string> historico, out decimal resultadoFormatado)
+        {
+            decimal primeiroNumero, segundoNumero;
+
+            ObterPrimeiroESegundoNumero(out primeiroNumero, out segundoNumero);
+
+            decimal resultado = primeiroNumero * segundoNumero;
+            resultadoFormatado = Math.Round(resultado, 2);
+            string resultadoString = primeiroNumero.ToString() + " * " + segundoNumero.ToString() + " = " + resultado;
+
+            historico.Add(resultadoString);
+        }
+
         private static void ExibirResultadoDaOperacao(decimal resultado)
         {
             decimal resultadoFormatado = Math.Round(resultado, 2);
@@ -142,9 +157,9 @@
             Console.WriteLine();
             Console.WriteLine("   Digite:                                                                        ");
             Console.WriteLine();
-            Console.WriteLine("   1  - Para para soma.                                                           ");
+            Console.WriteLine("   1  - Para soma.                                                                ");
             Console.WriteLine();
-            Console.WriteLine("   2  - Para para subtração                                                       ");
+            Console.WriteLine("   2  - Para subtração                                                            ");
             Console.WriteLine();
             Console.WriteLine("   3  - Para multiplicação.                                                       ");
             Console.WriteLine();
@@ -153,7 +168,7 @@
             Console.WriteLine();
             Console.WriteLine("   H  - Para visualizar o histórico de operações.                                 ");
             Console.WriteLine();
-
+            Console.WriteLine();
             Console.WriteLine("   S  - Para sair.                                                                ");
             Console.WriteLine();
             Console.WriteLine("__________________________________________________________________________________");
@@ -174,19 +189,6 @@
                 }
             }
             return opcao;
-        }
-
-        public static void RealizarOperacaoMultiplicacao(List<string> historico, out decimal resultadoFormatado)
-        {
-            decimal primeiroNumero, segundoNumero;
-
-            ObterPrimeiroESegundoNumero(out primeiroNumero, out segundoNumero);
-
-            decimal resultado = primeiroNumero * segundoNumero;
-            resultadoFormatado = Math.Round(resultado, 2);
-            string resultadoString = primeiroNumero.ToString() + " * " + segundoNumero.ToString() + " = " + resultado;
-
-            historico.Add(resultadoString);
         }
     }
 }
